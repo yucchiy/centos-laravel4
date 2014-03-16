@@ -9,6 +9,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.omnibus.chef_version = :latest
   config.vm.define :app do |app|
     app.vm.box = "centos64_ja"
+    app.vm.box_url = "http://file.yucchiy.com/public/centos64_ja.box"
+    # app.vm.box = "centos64-laravel4"
+    # app.vm.box_url = "http://file.yucchiy.com/public/centos64-laravel4-20140317.box"
     app.vm.network :private_network, ip: "192.168.23.10"
     app.vm.synced_folder ".", "/vagrant", :nfs => true
     app.vm.provider "virtualbox" do |vb|

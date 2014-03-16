@@ -1,0 +1,20 @@
+server {
+    listen 10080;
+
+    access_log /var/log/nginx/pma-access.log;
+    error_log  /var/log/nginx/pma-error.log;
+
+    root <%= node[:phpmyadmin][:document_root] %>;
+
+    location / {
+        index index.php;
+
+        location ~* \.php$ {
+            fastcgi_pass            127.0.0.1:9000;
+            fastcgi_index           index.php;
+            fastcgi_split_path_info ^(.+\.php)(.*)$;
+            fastcgi_param           SCRIPT_FILENAME $document_root$fastcgi_script_name;
+            include                 /etc/nginx/fastcgi_params;
+        }
+    }
+}
